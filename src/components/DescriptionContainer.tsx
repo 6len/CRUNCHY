@@ -9,8 +9,8 @@ type Props = {
     children: React.ReactNode;
 }
 
-const DescriptionContainer = ({classes, children} : Props) => (
-    <div className={classes.root} >
+const DescriptionContainer = ({classes, children}: Props) => (
+    <div className={classes.root}>
         {children}
     </div>
 )

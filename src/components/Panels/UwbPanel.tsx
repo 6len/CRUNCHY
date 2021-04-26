@@ -20,12 +20,13 @@ type Props = {
     gridRoot: string;
   };
 };
-const unityContent = new UnityContent(
-  "/UWBWEB2/Build/UWBWEB2.json",
-  "/UWBWEB2/Build/UnityLoader.js"
-);
 
 const UwbPanel = ({ classes }: Props) => {
+  const unityContent = new UnityContent(
+    "/UWBWEB2/Build/UWBWEB2.json",
+    "/UWBWEB2/Build/UnityLoader.js"
+  );
+
   return (
     <ContentContainer>
       <Grid container direction="row" justify="flex-start" alignItems="center">

@@ -57,7 +57,7 @@ const CrunchyPanel = () => {
               >
                 Crunchy
               </ContentTitle>
-              <GithubButton url="https://github.com/6len/MusicProject" />
+              <GithubButton url="https://github.com/6len/CRUNCHY" />
             </Grid>
           </Box>
 
