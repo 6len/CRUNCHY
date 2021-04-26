@@ -20,6 +20,8 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "gatsby": "^3.2.1",
+    "gatsby-plugin-material-ui": "^3.0.1",
+    "gatsby-plugin-react-svg": "^3.0.1",
     "html-react-parser": "^1.2.6",
     "moment": "^2.29.1",
     "react": "^17.0.1",
