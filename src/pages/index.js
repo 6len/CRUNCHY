@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../styles/global.css";
 import Navbar from "../components/Navbar";
 import PagePanel from "../components/Panels/PagePanel";
 import CrunchyPanel from "../components/Panels/CrunchyPanel";
