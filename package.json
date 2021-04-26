@@ -1,0 +1,32 @@
+{
+  "name": "crunchy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Crunchy",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "heroku-postbuild": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "gatsby serve --port ${PORT}",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "clsx": "^1.1.1",
+    "gatsby": "^3.2.1",
+    "html-react-parser": "^1.2.6",
+    "moment": "^2.29.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-table": "^7.6.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
