@@ -1,7 +1,7 @@
 import * as React from "react";
 import ContentContainer from "../ContentContainer";
 import ContentTitle from "../ContentTitle";
-import { Box, Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography, withStyles } from "@material-ui/core";
 import GithubButton from "../GithubButton";
 import DescriptionContainer from "../DescriptionContainer";
 import SummonerSearch from "../Crunchy/SummonerSearch";
@@ -10,8 +10,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CrunchyProgress from "../Crunchy/CrunchyProgress";
 import { CrunchySummoner } from "../types/RiotApiTypes";
+import { CrunchyPanelStyles } from "./styles";
 
-const CrunchyPanel = () => {
+type Props = {
+  classes: {
+    terms: string;
+    midSummonerSearch: string;
+  };
+};
+
+const CrunchyPanel = ({ classes }: Props) => {
   const [isSearched, setIsSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [summonerQuery, setSummonerQuery] = useState("");
@@ -33,7 +41,6 @@ const CrunchyPanel = () => {
         })
         .catch((error) => {
           setIsLoading(false);
-          console.log(error);
         });
     }
   }, [summonerQuery]);
@@ -75,12 +82,27 @@ const CrunchyPanel = () => {
         {isSearched && (
           <SummonerStats data={data} onSummonerClick={setSummonerQuery} />
         )}
+        {!isSearched && (
+          <Grid
+            container
+            justify={"center"}
+            className={classes.midSummonerSearch}
+          >
+            <SummonerSearch onEnter={setSummonerQuery} />
+          </Grid>
+        )}
+        <Grid container className={classes.terms}>
+          <Typography variant={"body2"}>
+            Crunchy isn't endorsed by Riot Games and doesn't reflect the views
+            or opinions of Riot Games or anyone officially involved in producing
+            or managing Riot Games properties. Riot Games, and all associated
+            properties are trademarks or registered trademarks of Riot Games,
+            Inc.
+          </Typography>
+        </Grid>
       </ContentContainer>
-      <Grid container justify={"center"}>
-        {!isSearched && <SummonerSearch onEnter={setSummonerQuery} />}
-      </Grid>
     </div>
   );
 };
 
-export default CrunchyPanel;
+export default withStyles(CrunchyPanelStyles)(CrunchyPanel);
