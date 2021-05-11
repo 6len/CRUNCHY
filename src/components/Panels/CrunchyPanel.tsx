@@ -65,6 +65,11 @@ const CrunchyPanel = ({ classes }: Props) => {
                 Crunchy
               </ContentTitle>
               <GithubButton url="https://github.com/6len/CRUNCHY" />
+              <GithubButton
+                url="https://github.com/6len/CrunchyApi"
+                tooltip="View API on Github"
+                color="error"
+              />
             </Grid>
           </Box>
 
