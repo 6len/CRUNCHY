@@ -16,7 +16,7 @@ import { CrunchySummoner } from "../types/RiotApiTypes";
 import CardStats from "./CardStats";
 import TeamStats from "./TeamStats";
 
-const ddragon = "http://ddragon.leagueoflegends.com/cdn/11.7.1/img/";
+const ddragon = "http://ddragon.leagueoflegends.com/cdn/11.15.1/img/";
 
 type Props = {
   data: CrunchySummoner;
