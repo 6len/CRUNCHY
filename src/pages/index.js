@@ -9,6 +9,7 @@ import { Box, CssBaseline, MuiThemeProvider } from "@material-ui/core";
 import { GlobalTheme } from "../styles/theme";
 import MucPanel from "../components/Panels/MucPanel";
 import AmalgamPanel from "../components/Panels/AmalgamPanel";
+import GizmosPanel from "../components/Panels/GizmosPanel";
 
 const IndexPage = () => {
   const [value, setValue] = React.useState(0);
@@ -32,6 +33,9 @@ const IndexPage = () => {
         </PagePanel>
         <PagePanel value={value} index={4}>
           <AmalgamPanel />
+        </PagePanel>
+        <PagePanel value={value} index={5}>
+          <GizmosPanel />
         </PagePanel>
       </Box>
     </MuiThemeProvider>

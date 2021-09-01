@@ -1,49 +1,87 @@
-import * as React from "react"
-import {AppBar, Tab, Tabs} from "@material-ui/core";
-import CrunchySvg from "../Icons/svg/crunchy.svg";
-import DbSvg from "../Icons/svg/db40.svg";
-import MucapiSvg from "../Icons/svg/mucapi.svg";
-import AmalgamSvg from "../Icons/svg/amalgam.svg";
-import UwbSvg from "../Icons/svg/uwb.svg";
+import * as React from "react";
+import { Grid, IconButton, Tab, Tabs } from "@material-ui/core";
+import ContentTitle from "./ContentTitle";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 type Props = {
-    value: number,
-    onChange: (value: number) => void;
-}
-const Navbar = ({value, onChange} : Props) => {
+  value: number;
+  onChange: (value: number) => void;
+};
+const Navbar = ({ value, onChange }: Props) => {
+  const handleChange = (e, newValue) => {
+    onChange(newValue);
+  };
 
-    const handleChange = (e, newValue) => {
-        onChange(newValue);
-    };
+  return (
+    <Grid
+      container
+      direction={"row"}
+      style={{
+        backgroundColor: "#48342b",
+        paddingLeft: "50px",
+        paddingRight: "50px",
+      }}
+      alignItems="center"
+      justify={"space-between"}
+    >
+      <Grid item>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#C46B16">Crunchy</ContentTitle>
+              </div>
+            )}
+          />
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#FF8AF8">UWB</ContentTitle>
+              </div>
+            )}
+          />
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#1ea216">MUC-API</ContentTitle>
+              </div>
+            )}
+          />
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#5FCDE4">DB-40</ContentTitle>
+              </div>
+            )}
+          />
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#ff3737">Amalgam</ContentTitle>
+              </div>
+            )}
+          />
+          <Tab
+            component={(props) => (
+              <div {...props}>
+                <ContentTitle color="#8797ea">Gizmos</ContentTitle>
+              </div>
+            )}
+          />
+        </Tabs>
+      </Grid>
 
-    return (
-        <AppBar position="static" color="default" style={{backgroundColor: '#48342b'}}>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-            >
-                <Tab component={props =>
-                    <div {...props}>
-                        <CrunchySvg/>
-                    </div>}/>
-                    <Tab component={props =>
-                    <div {...props}>
-                        <UwbSvg/>
-                    </div>}/>
-                <Tab component={props =>
-                    <div {...props}>
-                        <MucapiSvg/>
-                    </div>}/>
-                <Tab component={props =>
-                    <div {...props}>
-                        <DbSvg/>
-                    </div>}/>
-                <Tab component={props =>
-                    <div {...props}>
-                        <AmalgamSvg/>
-                    </div>}/>
-            </Tabs>
-        </AppBar>);
-}
+      <Grid item>
+        <IconButton href={"https://github.com/6len"} target={"blank"}>
+          <GitHubIcon htmlColor={"#FFFFC7"} />
+        </IconButton>
+        <IconButton href={"https://glencloughley.com"} target={"blank"}>
+          <ContactMailIcon htmlColor={"#FFFFC7"} />
+        </IconButton>
+      </Grid>
+    </Grid>
+  );
+};
 
 export default Navbar;
