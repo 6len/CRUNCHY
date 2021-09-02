@@ -16,9 +16,17 @@ import horizontalCenter from "../../images/horizontalCenter.png";
 import verticalTop from "../../images/verticalTop.png";
 import verticalBottom from "../../images/verticalBottom.png";
 import verticalCenter from "../../images/verticalCenter.png";
-import { useEffect, useState } from "react";
-import { Box, Button, Grid } from "@material-ui/core";
-import { BubbleChart } from "@material-ui/icons";
+import { useState } from "react";
+import {
+  Box,
+  Button,
+  CardContent,
+  Collapse,
+  Grid,
+  IconButton,
+} from "@material-ui/core";
+import { BubbleChart, ExpandLess, ExpandMore } from "@material-ui/icons";
+import ExpandedStats from "../Crunchy/ExpandedStats";
 
 export const tileDefinitions = {
   center: center,
@@ -41,7 +49,9 @@ export const tileDefinitions = {
 };
 
 const TileMapper = () => {
+  const [expand, setExpand] = useState(false);
   const [dimensions, setDimensions] = useState({ x: 12, y: 12 });
+  const [borders, setBorders] = useState(true);
   const [tileMap, setTileMap] = useState(
     Array.from({ length: dimensions.x }, () =>
       Array.from({ length: dimensions.y }, () => tileDefinitions.absent)
@@ -49,42 +59,48 @@ const TileMapper = () => {
   );
 
   const generateRandom = () => {
-    const amount = Math.floor(Math.random() * (11 * 11));
+    const amount = Math.floor(Math.random() * (12 * 12));
 
     for (let i = 0; i < amount; i++) {
-      const row = Math.floor(Math.random() * 11);
-      const col = Math.floor(Math.random() * 11);
+      const row = Math.floor(Math.random() * 12);
+      const col = Math.floor(Math.random() * 12);
 
       changeNode(row, col);
     }
   };
 
+  const resetTiles = () => {
+    setTileMap(
+      Array.from({ length: dimensions.x }, () =>
+        Array.from({ length: dimensions.y }, () => tileDefinitions.absent)
+      )
+    );
+  };
+
   const changeNode = (rowIndex, colIndex) => {
-    if (rowIndex > 0 && rowIndex < 11 && colIndex > 0 && colIndex < 11) {
-      let copy = [...tileMap];
-      const newValue =
-        copy[rowIndex][colIndex] === tileDefinitions.absent
-          ? tileDecider(rowIndex, colIndex, tileMap[rowIndex][colIndex], copy)
-          : tileDefinitions.absent;
+    let copy = [...tileMap];
+    const newValue =
+      copy[rowIndex][colIndex] === tileDefinitions.absent
+        ? tileDecider(rowIndex, colIndex, tileMap[rowIndex][colIndex], copy)
+        : tileDefinitions.absent;
 
-      copy[rowIndex][colIndex] = newValue;
+    copy[rowIndex][colIndex] = newValue;
 
-      copy.forEach((row, rowIndex) =>
-        row.forEach((tile, colIndex) => {
-          if (tile !== tileDefinitions.absent) {
-            const change = tileDecider(
-              rowIndex,
-              colIndex,
-              copy[rowIndex][colIndex],
-              copy
-            );
-            copy[rowIndex][colIndex] = change;
-          }
-        })
-      );
+    copy.forEach((row, rowIndex) =>
+      row.forEach((tile, colIndex) => {
+        if (tile !== tileDefinitions.absent) {
+          const change = tileDecider(
+            rowIndex,
+            colIndex,
+            copy[rowIndex][colIndex],
+            copy
+          );
+          copy[rowIndex][colIndex] = change;
+        }
+      })
+    );
 
-      setTileMap(copy);
-    }
+    setTileMap(copy);
   };
 
   const tileDecider = (rowIndex, colIndex, tile, tiles) => {
@@ -92,13 +108,19 @@ const TileMapper = () => {
     //bottom
     //left
     //right
-    const checkAbsent = (tile) => (tile === tileDefinitions.absent ? 0 : 1);
+    const checkAbsent = (tileMap, rowIndex, colIndex) => {
+      if (rowIndex < 0 || rowIndex > 11 || colIndex < 0 || colIndex > 11) {
+        return 0;
+      } else {
+        return tileMap[rowIndex][colIndex] === tileDefinitions.absent ? 0 : 1;
+      }
+    };
 
     const tileRules = [
-      checkAbsent(tileMap[rowIndex - 1][colIndex]),
-      checkAbsent(tileMap[rowIndex + 1][colIndex]),
-      checkAbsent(tileMap[rowIndex][colIndex - 1]),
-      checkAbsent(tileMap[rowIndex][colIndex + 1]),
+      checkAbsent(tileMap, rowIndex - 1, colIndex),
+      checkAbsent(tileMap, rowIndex + 1, colIndex),
+      checkAbsent(tileMap, rowIndex, colIndex - 1),
+      checkAbsent(tileMap, rowIndex, colIndex + 1),
     ].toString();
 
     switch (tileRules) {
@@ -137,44 +159,90 @@ const TileMapper = () => {
     }
     return tileDefinitions.absent;
   };
-
   return (
-    <div>
-      <Grid container>
-        {tileMap.map((tileRow, rowIndex) => (
-          <Grid item container>
-            {tileRow.map((tile, columnIndex) => (
-              <Grid
-                item
-                onClick={() => {
-                  changeNode(rowIndex, columnIndex);
-                }}
-                style={{
-                  border: "1px solid black",
-                  height: "64px",
-                  width: "64px",
-                }}
-              >
-                <img
-                  src={tile}
-                  style={{
-                    width: "64px",
-                    height: "64px",
-                    imageRendering: "pixelated",
-                  }}
-                />
+    <div style={{ width: "100%" }}>
+      <Grid item container justify="center">
+        <Grid item>
+          <IconButton onClick={() => setExpand(!expand)}>
+            {expand ? (
+              <ExpandLess fontSize="inherit" />
+            ) : (
+              <ExpandMore fontSize="inherit" />
+            )}
+          </IconButton>
+        </Grid>
+      </Grid>
+      <Collapse in={expand} timeout={500}>
+        <Grid container xs={12}>
+          <Grid item container xs={8} justify={"center"} alignItems={"center"}>
+            {tileMap.map((tileRow, rowIndex) => (
+              <Grid item container style={{ maxWidth: "768px" }}>
+                {tileRow.map((tile, columnIndex) => (
+                  <Grid
+                    item
+                    onClick={() => {
+                      changeNode(rowIndex, columnIndex);
+                    }}
+                    style={{
+                      outline: borders ? "1px solid black" : "",
+                      height: "64px",
+                      width: "64px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img
+                      src={tile}
+                      style={{
+                        width: "64px",
+                        height: "64px",
+                        imageRendering: "pixelated",
+                      }}
+                    />
+                  </Grid>
+                ))}
               </Grid>
             ))}
           </Grid>
-        ))}
-        <Grid item container>
-          <Grid item>
-            <Button onClick={generateRandom}>Generate Random</Button>
+          <Grid
+            item
+            container
+            direction={"column"}
+            alignItems={"center"}
+            justify={"center"}
+            xs
+            spacing={2}
+          >
+            <Grid item>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                onClick={generateRandom}
+              >
+                Generate Random
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                onClick={resetTiles}
+              >
+                Clear Tiles
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                onClick={() => setBorders(!borders)}
+              >
+                Toggle Grid
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Collapse>
     </div>
   );
 };
-
 export default TileMapper;
