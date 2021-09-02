@@ -3,6 +3,7 @@ import ContentContainer from "../ContentContainer";
 import ContentTitle from "../ContentTitle";
 import { Grid, Typography } from "@material-ui/core";
 import DescriptionContainer from "../DescriptionContainer";
+import TileMapper from "../Gizmos/TileMapper";
 
 const GizmosPanel = () => {
   return (
@@ -22,6 +23,7 @@ const GizmosPanel = () => {
             spare time
           </Typography>
         </DescriptionContainer>
+        <TileMapper />
       </ContentContainer>
     </div>
   );
