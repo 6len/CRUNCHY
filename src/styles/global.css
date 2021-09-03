@@ -11,7 +11,11 @@ goldcost {
     color: #b8b816;
 }
 
-#___gatsby, #gatsby-focus-wrapper {
+#___gatsby {
+    height: 100%;
+}
+
+#gatsby-focus-wrapper {
     height: 100%;
 }
 
