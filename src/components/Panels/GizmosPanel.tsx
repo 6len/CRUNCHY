@@ -5,6 +5,7 @@ import { Card, Grid, Link, Typography, withStyles } from "@material-ui/core";
 import DescriptionContainer from "../DescriptionContainer";
 import TileMapper from "../Gizmos/TileMapper";
 import { GizmosPanelStyles } from "../style/GizmosPanelStyles";
+import SpriteShowcase from "../Gizmos/SpriteShowcase";
 
 type Props = {
   classes: {
@@ -67,6 +68,16 @@ const GizmosPanel = ({ classes }: Props) => {
                   Sanctuary
                 </Typography>
               </DescriptionContainer>
+            </Card>
+          </Grid>
+          <Grid item className={classes.gridItem}>
+            <Card className={classes.card}>
+              <Typography variant="h6"> Pixel Showcase </Typography>
+              <Typography variant="body1">
+                A small showcase of the progress of learning pixelart for
+                game-development
+              </Typography>
+              <SpriteShowcase />
             </Card>
           </Grid>
         </Grid>

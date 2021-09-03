@@ -1,12 +1,18 @@
 import * as React from "react";
 import ContentContainer from "../ContentContainer";
 import ContentTitle from "../ContentTitle";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, withStyles } from "@material-ui/core";
 import DescriptionContainer from "../DescriptionContainer";
+import { AmalgamStyles } from "../style/AmalgamStyles";
 
-const DbPanel = () => {
+type Props = {
+  classes: {
+    root: string;
+  };
+};
+const AmalgamPanel = ({ classes }: Props) => {
   return (
-    <div>
+    <div className={classes.root}>
       <ContentContainer>
         <Grid
           container
@@ -25,11 +31,8 @@ const DbPanel = () => {
           </Typography>
         </DescriptionContainer>
       </ContentContainer>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <img src={"/amalg.png"} />
-      </Grid>
     </div>
   );
 };
 
-export default DbPanel;
+export default withStyles(AmalgamStyles)(AmalgamPanel);

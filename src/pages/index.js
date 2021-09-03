@@ -17,7 +17,7 @@ const IndexPage = () => {
   return (
     <MuiThemeProvider theme={GlobalTheme}>
       <CssBaseline />
-      <Box height="100%">
+      <Box id={value === 4 && "amalgam"} height="100%">
         <Navbar value={value} onChange={setValue} />
         <PagePanel value={value} index={0}>
           <CrunchyPanel />

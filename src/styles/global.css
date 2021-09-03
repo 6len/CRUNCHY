@@ -10,3 +10,17 @@ body {
 goldcost {
     color: #b8b816;
 }
+
+#___gatsby, #gatsby-focus-wrapper {
+    height: 100%;
+}
+
+ {
+    height: 100%;
+}
+#amalgam {
+    background-image: url("../images/amalg.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-color: #29273e !important;
+}
