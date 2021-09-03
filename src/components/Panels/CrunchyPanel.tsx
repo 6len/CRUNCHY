@@ -11,24 +11,34 @@ import axios from "axios";
 import CrunchyProgress from "../Crunchy/CrunchyProgress";
 import { CrunchySummoner } from "../types/RiotApiTypes";
 import { CrunchyPanelStyles } from "./styles";
+import * as queryString from "querystring";
 
 type Props = {
+  location: any;
   classes: {
     terms: string;
     midSummonerSearch: string;
   };
+  summoner?: string;
 };
 
-const CrunchyPanel = ({ classes }: Props) => {
+const CrunchyPanel = ({ location, classes, summoner = "" }: Props) => {
   const [isSearched, setIsSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [summonerQuery, setSummonerQuery] = useState("");
   const [data, setData] = useState<CrunchySummoner>();
 
+  useEffect(() => {
+    if (summoner !== "") {
+      setSummonerQuery(summoner);
+    }
+  }, []);
+
   const resetPage = () => {
     setIsSearched(false);
     setSummonerQuery("");
   };
+
   useEffect(() => {
     if (summonerQuery !== "") {
       setIsLoading(true);
@@ -43,6 +53,12 @@ const CrunchyPanel = ({ classes }: Props) => {
           setIsLoading(false);
         });
     }
+    const path =
+      summonerQuery !== ""
+        ? `${location.pathname}?summoner=${summonerQuery}`
+        : location.pathname;
+
+    window.history.replaceState({}, "", path);
   }, [summonerQuery]);
 
   return (

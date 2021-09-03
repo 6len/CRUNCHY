@@ -10,9 +10,21 @@ import { GlobalTheme } from "../styles/theme";
 import MucPanel from "../components/Panels/MucPanel";
 import AmalgamPanel from "../components/Panels/AmalgamPanel";
 import GizmosPanel from "../components/Panels/GizmosPanel";
+import { useEffect } from "react";
 
-const IndexPage = () => {
+const IndexPage = ({ location }) => {
+  const params = new URLSearchParams(location.search);
+  const summoner = params.get("summoner") || "";
+
   const [value, setValue] = React.useState(0);
+
+  useEffect(() => {
+    if (value !== 0) {
+      params.delete("summoner");
+      location.search = "";
+      window.history.replaceState({}, "", location.pathname);
+    }
+  }, [value]);
 
   return (
     <MuiThemeProvider theme={GlobalTheme}>
@@ -20,7 +32,7 @@ const IndexPage = () => {
       <Box id={value === 4 && "amalgam"} height="100%">
         <Navbar value={value} onChange={setValue} />
         <PagePanel value={value} index={0}>
-          <CrunchyPanel />
+          <CrunchyPanel location={location} summoner={summoner} />
         </PagePanel>
         <PagePanel value={value} index={1}>
           <UwbPanel />
