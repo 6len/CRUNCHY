@@ -11,6 +11,7 @@ import MucPanel from "../components/Panels/MucPanel";
 import AmalgamPanel from "../components/Panels/AmalgamPanel";
 import GizmosPanel from "../components/Panels/GizmosPanel";
 import { useEffect } from "react";
+import PhixelPanel from "../components/Panels/PhixelPanel";
 
 const IndexPage = ({ location }) => {
   const params = new URLSearchParams(location.search);
@@ -47,6 +48,9 @@ const IndexPage = ({ location }) => {
           <AmalgamPanel />
         </PagePanel>
         <PagePanel value={value} index={5}>
+          <PhixelPanel />
+        </PagePanel>
+        <PagePanel value={value} index={6}>
           <GizmosPanel />
         </PagePanel>
       </Box>
