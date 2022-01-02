@@ -152,7 +152,7 @@ const PhixelPanel = () => {
       setPixelPower(100);
     }
 
-    setSettings({ ...settings, pixelatePercent: 5 / pixelPower });
+    setSettings({ ...settings, pixelatePercent: 1 / pixelPower });
   };
 
   const handleColorAmountSliderChange = (event, newValue) => {
