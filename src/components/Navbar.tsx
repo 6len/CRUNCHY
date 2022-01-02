@@ -65,7 +65,7 @@ const Navbar = ({ value, onChange }: Props) => {
           <Tab
             component={(props) => (
               <div {...props}>
-                <ContentTitle color="#8797ea">Phixel</ContentTitle>
+                <ContentTitle color="#94931D">Phixel</ContentTitle>
               </div>
             )}
           />

@@ -208,7 +208,7 @@ const PhixelPanel = () => {
           justify="flex-start"
           alignItems="center"
         >
-          <ContentTitle color="#1ea216">PHIXEL</ContentTitle>
+          <ContentTitle color="#94931D">Phixel</ContentTitle>
           <GithubButton url="https://github.com/6len/MUCAPI" />
         </Grid>
         <Typography variant="h6"> Image to pixelart converter </Typography>
